@@ -1,0 +1,26 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./src/main/docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./alerts.yml:/etc/prometheus/alerts.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=phongnguyendangnam04@gmail.com
+      - GF_SMTP_PASSWORD=rrgv hean hhwt wwfx
+      - GF_SMTP_FROM_ADDRESS=phongnguyendangnam04@gmail.com
+    volumes:
+      - grafana-data:/var/lib/grafana
+volumes:
+  grafana-data:

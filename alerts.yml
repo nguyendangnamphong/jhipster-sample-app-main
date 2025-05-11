@@ -1,0 +1,11 @@
+groups:
+- name: jhipster-rules
+  rules:
+  - alert: HighRequestRate
+    expr: rate(http_server_requests_seconds_count{application="jhipsterSampleApplication"}[5m]) > 1
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High request rate detected"
+      description: "Application is receiving more than 1 request/second for 1 minute."
